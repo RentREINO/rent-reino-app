@@ -71,6 +71,7 @@ export default function Rent() {
       setToast(e.message);
     }
   };
+
   const manual = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -120,6 +121,7 @@ export default function Rent() {
           )
         }
       />
+
       <div className="rent-summary">
         <div className="balance-card">
           <span>Outstanding balance</span>
@@ -158,6 +160,7 @@ export default function Rent() {
           </div>
         )}
       </div>
+
       <section className="panel table-panel">
         <div className="panel-head">
           <div>
@@ -221,6 +224,7 @@ export default function Rent() {
           />
         )}
       </section>
+
       <section className="panel table-panel">
         <div className="panel-head">
           <div>
@@ -282,6 +286,7 @@ export default function Rent() {
           />
         )}
       </section>
+
       <Modal
         open={payOpen}
         onClose={() => {
@@ -412,11 +417,12 @@ function Checkout({ amount, onDone }) {
   };
   return (
     <form onSubmit={submit} className="stripe-form">
-      <div className="payment-amount">
+      {/* <div className="payment-amount">
         <span>Payment amount</span>
         <strong>{money(amount)}</strong>
-      </div>
+      </div> */}
       <PaymentElement />
+
       <button className="btn primary full" disabled={busy || !stripe}>
         {busy ? "Processing..." : `Pay ${money(amount)}`}
       </button>

@@ -87,11 +87,11 @@ export default function Login() {
           <button className="btn primary full" disabled={busy}>
             {busy ? "Signing in..." : "Sign in"}
           </button>
-          <div className="demo-note">
+          {/* <div className="demo-note">
             <strong>Demo</strong>
             <span>Owner: owner@example.com / Demo123!</span>
             <span>Tenant: tenant@example.com / Demo123!</span>
-          </div>
+          </div> */}
           <p className="auth-switch">
             New landlord? <Link to="/register">Create an account</Link>
           </p>

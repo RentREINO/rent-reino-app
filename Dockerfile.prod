@@ -1,0 +1,38 @@
+
+# Step 1: Build the application
+FROM node:22-alpine3.21 AS build-stage
+
+# Update Alpine packages to reduce known OS vulnerabilities
+RUN apk update && apk upgrade --no-cache && rm -rf /var/cache/apk/*
+
+# Create non-root user
+RUN addgroup -S app && adduser -S app -G app
+
+WORKDIR /app
+
+# Copy dependency files first for Docker cache
+COPY --chown=app:app package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy application
+COPY --chown=app:app . .
+
+# Make sure app user owns the application directory 
+RUN chown -R app:app /app
+
+USER app
+
+ENV VITE_API_URL=http://142.93.58.173:5001/api
+
+RUN npm run build
+
+# Pin the nginx base image to a specific patched release instead of the floating 'stable' tag.
+FROM nginx:1.27-alpine AS production-stage
+
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

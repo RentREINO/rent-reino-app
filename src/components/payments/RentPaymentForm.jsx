@@ -27,8 +27,7 @@ export default function RentPaymentForm() {
       elements,
 
       confirmParams: {
-        return_url:
-          `${window.location.origin}/tenant/payment-success`,
+        return_url: `${window.location.origin}/tenant/payment-success`,
       },
     });
 
@@ -40,22 +39,13 @@ export default function RentPaymentForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-
       <PaymentElement />
 
-      {error && (
-        <div className="payment-error">
-          {error}
-        </div>
-      )}
+      {error && <div className="payment-error">{error}</div>}
 
-      <button
-        type="submit"
-        disabled={!stripe || !elements || loading}
-      >
+      <button type="submit" disabled={!stripe || !elements || loading}>
         {loading ? "Processing..." : "Pay Rent"}
       </button>
-
     </form>
   );
 }
